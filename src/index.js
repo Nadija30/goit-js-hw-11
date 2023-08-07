@@ -20,7 +20,7 @@ function onLoad(entries, observer) {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             currentPage += 1;
-            searchPhoto(currentPage)
+            searchPhoto(valueSearchPhoto, currentPage, perPage)
                 .then(data => {
                     const searchResults = data.hits;
                     const numberOfPage = Math.ceil(data.totalHits / perPage);
