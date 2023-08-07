@@ -25,11 +25,12 @@ function onLoad(entries, observer) {
                     const searchResults = data.hits;
                     const numberOfPage = Math.ceil(data.totalHits / perPage);
                     createMarkup(searchResults);
-                    if (page === numberOfPage) {
-                         btnLoadMore.classList.add('is-hidden');
-                         observer.unobserve(target);
+                      if (currentPage === numberOfPage) {
+                        btnLoadMore.classList.add('is-hidden');
                         Notify.info("Вибачте, але ви досягли кінця результатів пошуку.", paramsForNotify);
-                    }
+                        btnLoadMore.removeEventListener('click', handlerLoadMore);
+                        observer.unobserve(target);
+                    };
                 })
                 .catch((err) => console.log(err))
         }
@@ -74,12 +75,12 @@ function onLoad(entries, observer) {
                         console.log(searchResults);
                         console.log(data.totalHits);
                         createMarkup(searchResults);
+                         observer.observe(target);
                         lightbox.refresh();
 
                     };
                     if (data.totalHits > perPage) {
                         btnLoadMore.classList.remove('is-hidden');
-                        observer.observe(target);
                     };
                 })
                 .catch(onFetchError);
