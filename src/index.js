@@ -9,33 +9,33 @@ const galleryImage = document.querySelector('.gallery');
 const btnLoadMore = document.querySelector('.load-more');
 const target = document.querySelector('.js-quard')
 
-let currentPage = 1;
-let options = {
-    root: null,
-    rootMargin: "300px",
-    threshold: 1.0,
-};
-let observer = new IntersectionObserver(onLoad, options); 
-function onLoad(entries, observer) {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            currentPage += 1;
-            searchPhoto(valueSearchPhoto, currentPage, perPage)
-                .then(data => {
-                    const searchResults = data.hits;
-                    const numberOfPage = Math.ceil(data.totalHits / perPage);
-                    createMarkup(searchResults);
-                      if (currentPage === numberOfPage) {
-                        btnLoadMore.classList.add('is-hidden');
-                        Notify.info("Вибачте, але ви досягли кінця результатів пошуку.", paramsForNotify);
-                        btnLoadMore.removeEventListener('click', handlerLoadMore);
-                        observer.unobserve(target);
-                    };
-                })
-                .catch((err) => console.log(err))
-        }
-    });
-}
+// let currentPage = 1;
+// let options = {
+//     root: null,
+//     rootMargin: "300px",
+//     threshold: 1.0,
+// };
+// let observer = new IntersectionObserver(onLoad, options); 
+// function onLoad(entries, observer) {
+//     entries.forEach((entry) => {
+//         if (entry.isIntersecting) {
+//             currentPage += 1;
+//             searchPhoto(valueSearchPhoto, currentPage, perPage)
+//                 .then(data => {
+//                     const searchResults = data.hits;
+//                     const numberOfPage = Math.ceil(data.totalHits / perPage);
+//                     createMarkup(searchResults);
+//                       if (currentPage === numberOfPage) {
+//                         btnLoadMore.classList.add('is-hidden');
+//                         Notify.info("Вибачте, але ви досягли кінця результатів пошуку.", paramsForNotify);
+//                         btnLoadMore.removeEventListener('click', handlerLoadMore);
+//                         observer.unobserve(target);
+//                     };
+//                 })
+//                 .catch((err) => console.log(err))
+//         }
+//     });
+// }
 
         const paramsForNotify = {
             position: 'center-center',
@@ -75,7 +75,7 @@ function onLoad(entries, observer) {
                         console.log(searchResults);
                         console.log(data.totalHits);
                         createMarkup(searchResults);
-                         observer.observe(target);
+                        //  observer.observe(target);
                         lightbox.refresh();
 
                     };
