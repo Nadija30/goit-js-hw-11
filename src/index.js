@@ -9,33 +9,33 @@ const galleryImage = document.querySelector('.gallery');
 const btnLoadMore = document.querySelector('.load-more');
 const target = document.querySelector('.js-quard')
 
-// let currentPage = 1;
-// let options = {
-//     root: null,
-//     rootMargin: "300px",
-//     threshold: 1.0,
-// };
-// let observer = new IntersectionObserver(onLoad, options); 
-// function onLoad(entries, observer) {
-//     entries.forEach((entry) => {
-//         if (entry.isIntersecting) {
-//             currentPage += 1;
-//             searchPhoto(valueSearchPhoto, currentPage, perPage)
-//                 .then(data => {
-//                     const searchResults = data.hits;
-//                     const numberOfPage = Math.ceil(data.totalHits / perPage);
-//                     createMarkup(searchResults);
-//                       if (currentPage === numberOfPage) {
-//                         btnLoadMore.classList.add('is-hidden');
-//                         Notify.info("Вибачте, але ви досягли кінця результатів пошуку.", paramsForNotify);
-//                         btnLoadMore.removeEventListener('click', handlerLoadMore);
-//                         observer.unobserve(target);
-//                     };
-//                 })
-//                 .catch((err) => console.log(err))
-//         }
-//     });
-// }
+let currentPage = 1;
+let options = {
+    root: null,
+    rootMargin: "300px",
+    threshold: 1.0,
+};
+let observer = new IntersectionObserver(onLoad, options); 
+function onLoad(entries, observer) {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            currentPage += 1;
+            searchPhoto(valueSearchPhoto, currentPage, perPage)
+                .then(data => {
+                    const searchResults = data.hits;
+                    const numberOfPage = Math.ceil(data.totalHits / perPage);
+                    createMarkup(searchResults);
+                      if (currentPage === numberOfPage) {
+                        btnLoadMore.classList.add('is-hidden');
+                        Notify.info("Вибачте, але ви досягли кінця результатів пошуку.", paramsForNotify);
+                        btnLoadMore.removeEventListener('click', handlerLoadMore);
+                        observer.unobserve(target);
+                    };
+                })
+                .catch((err) => console.log(err))
+        }
+    });
+}
 
         const paramsForNotify = {
             position: 'center-center',
@@ -49,7 +49,7 @@ const target = document.querySelector('.js-quard')
         let page = 1;
         let valueSearchPhoto = '';
 
-        btnLoadMore.classList.add('is-hidden');
+       btnLoadMore.classList.add('is-hidden');
 
         form.addEventListener('submit', handlerForm)
 
@@ -75,16 +75,16 @@ const target = document.querySelector('.js-quard')
                         console.log(searchResults);
                         console.log(data.totalHits);
                         createMarkup(searchResults);
-                        //  observer.observe(target);
+                          observer.observe(target);
                         lightbox.refresh();
 
                     };
                     if (data.totalHits > perPage) {
-                        btnLoadMore.classList.remove('is-hidden');
+                       // btnLoadMore.classList.remove('is-hidden');
                     };
                 })
                 .catch(onFetchError);
-            btnLoadMore.addEventListener('click', handlerLoadMore);
+           // btnLoadMore.addEventListener('click', handlerLoadMore);
             evt.currentTarget.reset();
         }
 
@@ -112,23 +112,23 @@ const target = document.querySelector('.js-quard')
             });
             galleryImage.insertAdjacentHTML("beforeend", arrPhotos.join(''));
         };
-        function handlerLoadMore() {
-            page += 1;
-            searchPhoto(valueSearchPhoto, page, perPage)
-                .then(data => {
-                    const searchResults = data.hits;
-                    const numberOfPage = Math.ceil(data.totalHits / perPage);
+        // function handlerLoadMore() {
+        //     page += 1;
+        //     searchPhoto(valueSearchPhoto, page, perPage)
+        //         .then(data => {
+        //             const searchResults = data.hits;
+        //             const numberOfPage = Math.ceil(data.totalHits / perPage);
             
-                    createMarkup(searchResults);
-                    if (page === numberOfPage) {
-                        btnLoadMore.classList.add('is-hidden');
-                        Notify.info("Вибачте, але ви досягли кінця результатів пошуку.", paramsForNotify);
-                        btnLoadMore.removeEventListener('click', handlerLoadMore);
-                    };
-                    lightbox.refresh();
-                })
-                .catch(onFetchError);
-        };
+        //             createMarkup(searchResults);
+        //             if (page === numberOfPage) {
+        //                 btnLoadMore.classList.add('is-hidden');
+        //                 Notify.info("Вибачте, але ви досягли кінця результатів пошуку.", paramsForNotify);
+        //                 btnLoadMore.removeEventListener('click', handlerLoadMore);
+        //             };
+        //             lightbox.refresh();
+        //         })
+        //         .catch(onFetchError);
+        // };
         function onFetchError() {
             Notify.failure("Ой! Щось пішло не так! Спробуйте перезавантажити сторінку або зробіть інший вибір!', paramsForNotify");
         };
