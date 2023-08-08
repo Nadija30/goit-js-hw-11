@@ -69,6 +69,7 @@ const target = document.querySelector('.js-quard')
                 .then(data => {
                     const searchResults = data.hits;
                     if (data.totalHits === 0) {
+                        btnLoadMore.classList.add('is-hidden');
                         Notify.failure('«На жаль, немає зображень, які відповідають вашому пошуковому запиту. Будь ласка спробуйте ще раз.', paramsForNotify);
                     } else {
                         Notify.info(`Урааа! Ми знайшли ${data.totalHits} зображення.`, paramsForNotify);
