@@ -49,7 +49,6 @@ const target = document.querySelector('.js-quard')
         let page = 1;
         let valueSearchPhoto = '';
 
-       btnLoadMore.classList.add('is-hidden');
 
         form.addEventListener('submit', handlerForm)
 
@@ -71,6 +70,7 @@ const target = document.querySelector('.js-quard')
                     if (data.totalHits === 0) {
                         btnLoadMore.classList.add('is-hidden');
                         Notify.failure('«На жаль, немає зображень, які відповідають вашому пошуковому запиту. Будь ласка спробуйте ще раз.', paramsForNotify);
+                    return
                     } else {
                         Notify.info(`Урааа! Ми знайшли ${data.totalHits} зображення.`, paramsForNotify);
                         console.log(searchResults);
